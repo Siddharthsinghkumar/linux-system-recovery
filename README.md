@@ -1,7 +1,7 @@
 # How I Recovered My Linux System After Breaking `/home`
 
 > **Date:** June 2025  
-> **Author:** Your Name  
+> **Author:** Siddharth Singh
 
 ---
 
@@ -33,7 +33,7 @@ In short: **I had lost access to my user files and my desktop environment**.
      - There was an unallocated block of ~396 GB (previously freed from my data partition).  
      - `/etc/fstab` on the root partition pointed to a non-existent UUID for `/home`.
 
-   ![GParted showing unallocated space where /home should be](docs/screenshots/gparted-unallocated-before.png)
+   ![GParted showing unallocated space where /home should be](docs/screenshots/gparted-unallocated-before.jpg)
 
 3. **Broken GNOME & Corrupted Packages**  
    - When I tried to boot anyway, Ubuntu dropped into emergency mode.  
@@ -70,7 +70,7 @@ At this point I knew two things needed fixing:
    - **Deleted** the old 100 GB “home” partition (`nvme1n1p3`), leaving ~396 GB unallocated.  
    - **Created** a new 396 GB `ext4` partition and labeled it `home_new`.  
 
-   ![GParted: New ext4 partition ~396 GB for /home](docs/screenshots/gparted-unallocated-before.png)
+   ![GParted: New ext4 partition ~396 GB for /home](docs/screenshots/gparted-unallocated-before.jpg)
 
 2. **Mount Old Root & New `/home`**  
    ```bash
@@ -125,7 +125,7 @@ At this point I knew two things needed fixing:
      ```
    - My user directories and files were all intact at `/home/username`.
 
-   ![`df -h` showing /home mounted on ~396 GB partition](docs/screenshots/final-df-h.png)
+   ![`df -h` showing /home mounted on ~396 GB partition](docs/screenshots/final-df-h.jpg)
 
 ### 3. Recover Broken Desktop Packages
 
@@ -203,16 +203,6 @@ Even after restoring `/home`, my GNOME desktop was still broken (Ubuntu booted t
 
 - **Shell Scripting & Automation**  
   - (Optionally) Created a small `safe_resize_home.sh` that mounts partitions, copies `/home`, and updates `/etc/fstab` automatically—showing that I can turn manual steps into reproducible automation.
-
----
-
-## TL;DR
-
-**Yes, you should share this story as a technical write-up**, because:
-
-- It proves you can troubleshoot a complete system fail—something rare in most student portfolios.  
-- Recruiters and DevOps engineers will immediately see that you know GRUB, partitions, `fstab`, Live USB recovery, and package repair.  
-- It ties together your AI/Flux 1 Dev work with **real** Linux administration skills—demonstrating that you can manage everything from user‐level container workflows down to OS-level recovery.
 
 ---
 
